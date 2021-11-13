@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <Forms>
+    <CETrainer Class="TTrainerForm" Encoding="Ascii85">=N-Z/,cp%XrO4DHse].4q)IRD25o?:#x#rWWm%4mI,kE5P0}eCTB65-Y0.qQ?g%:8Kh#zCK][5ibXjCoij+bW$;a.VGRaGxd(qmvm7xVd91hNI$1y]$j?f^,mF4-;=A931x(B0J4^;)B.QBv6kLg-{,A;}cDPQQnx9,$J(n}b;bIvG%j?t]f#:Vzu9892x*.yzmyTQBdkqqa(Msw7B2WEJbP/HF_@c2[wf!LLE2ov(Zk#P*z,#_HW)3U@qY[c;%T4ZGw[_:,53Bx$_1R]ek+c//fSy2+z($=(bpSx$ki9J7BlZ:ZER@+5N*Qy9wyrq@NUQz=/j,z00DUO9G$Hewu$5S[SC.nI,0yi8:4VPr,Icy[R=z4ON0,UfLo(Z_2i!t3_hEuf}Z1{/Im*:NA%@1xBmSU#0Ku6H;HU,1v-iC9U==1kxw:0{;U*Jrzj?{:3w4mFN.dypxT9WEY/bWne*$8;c,V+If$a2*Ls=F8a6_mJpl*b{R%Tc+i@yK6OJW;lok)ZRYajIgj;w:Do[35?c({y{SHKm)8(GPftnq80IXtty7Rx-(:@Esp2QWIupz_aa8p(*:0ny1=12MX2AvlS_)5Unvz@+[O#@5{pjn[]L,ZaQ+@Q@otPocSbM3nfXJISHvrSLHJi:}02bGTjZQ/w2]fwc+a[hD%Kf9YR{9l[u+N0VswMr*x]zXtYA-+ciQVpZkXe)%(onXuAS61XTH9#2MzvLI43f7DA@*P]k9fq3[00kdNFvSx]{x6qnH5ohA1*d.e%lIe-:[n7ZV^CM;wr07kGCy8XHdPD^o_.RnazBkadbTrJe,9d8@(^:RB!Cte=zO8+G%4Jmt9T@[M,C_+/l7u+v+:ZCAB2UWttG0.,gw9(G{hG.42nP^nKfJ*sFe?ifI(x#4n?u3B.58Kp7)9}CxRUM-lCeAR3fAQap-QKP?+gNxe/Sp!}wBOeXY7Z%2./rwSm[U}zG)m%Sx9;.ZbQH#.V6q3BejfJQ2G+a=h2D:},d?1T?wODq+%8BUB-D?9JO2%!SMHq%0b4P=/cai$m5?H3qYdGfpJsfk8d7x$VF$vWK6CoGNLZ$bD3tGhvegzM8*j#3hg_v1lAjPH8im:Zh9ahN8VQ,-Mp/=%1!CDlRFvt3[*SNQMUG?S6BA+KPa5K$v}ILV/DeVup=c!Y5;@(=[){Z81L_w}7dULn+Sn[t!}aeB%T2kqbY/qo#Gh-:;aRlGp7.JT*b]c*,B5hM</CETrainer>
+  </Forms>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"ANTI ALT TAB"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Array of byte</VariableType>
+      <ByteLength>16</ByteLength>
+      <Address>142f09359</Address>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Set Value</Action>
+          <Keys>
+            <Key>18</Key>
+            <Key>50</Key>
+          </Keys>
+          <Value>CC CC CC CC CC CC CC C3 90 90 90 48 83 3D EC 16</Value>
+          <Description>Cheat 1</Description>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>
+  <!-- include script "script.lua" -->
+</LuaScript>
+</CheatTable>
