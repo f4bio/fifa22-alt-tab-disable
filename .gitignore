@@ -331,4 +331,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/node,linux,macos,dotenv,windows,intellij,visualstudiocode
 
-_original
+/_original
+/1337patch.exe
