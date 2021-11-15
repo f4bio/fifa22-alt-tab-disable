@@ -3,7 +3,7 @@ on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     steps:
       - name: Check out Repo
         uses: actions/checkout@v2
@@ -25,10 +25,10 @@ jobs:
           tag_name: v0.0.1
           draft: false
           prerelease: false
-          files: target/release/fuck-ea
+          files: fuck-ea.exe
 
       - name: Artifact Production
         uses: actions/upload-artifact@v1
         with:
           name: release-build-artifact.zip
-          path: target/release/fuck-ea
+          path: fuck-ea.exe
