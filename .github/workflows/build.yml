@@ -25,7 +25,9 @@ jobs:
           tag_name: v0.0.1
           draft: false
           prerelease: false
-          files: fuck-ea.exe
+          files: |
+            fuck-ea.exe
+            fuck-ea.1337
 
       - name: Artifact Production
         uses: actions/upload-artifact@v1
