@@ -12,6 +12,7 @@ jobs:
         run: |
           Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
           Install-Module -Name ps2exe
+          ln -s $(which pwsh) /usr/bin/powershell
           Invoke-ps2exe "fuck-ea.ps1" -version 0.0.1 -noOutput -noVisualStyles
         shell: pwsh
 
