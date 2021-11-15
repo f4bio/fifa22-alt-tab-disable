@@ -11,7 +11,7 @@ jobs:
       - name: Build
         run: |
           Install-Module -Name ps2exe
-          ./build.ps1
+          Invoke-ps2exe "fuck-ea.ps1" -version 0.0.1 -noOutput -noVisualStyles
         shell: pwsh
 
       - name: Release
@@ -30,4 +30,3 @@ jobs:
         with:
           name: release-build-artifact.zip
           path: target/release/fuck-ea
-

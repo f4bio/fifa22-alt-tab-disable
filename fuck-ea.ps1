@@ -1,14 +1,16 @@
+$tempDir = [System.IO.Path]::GetTempPath()
+
 # Source file location
 $patcherExeSource = "https://github.com/chausner/1337patch/releases/download/version-1.0/1337patch.exe"
-$patcherExePath = Join-Path -Path $env:TEMP -ChildPath "1337patch.exe"
+$patcherExePath = Join-Path -Path $tempDir -ChildPath "1337patch.exe"
 $patcherExeHash = "39B702074319493D2B896AEA4876B1A6C9057113FB0DF969F0BE0D5C3A0224F9"
 
 # Write-Debug ('$patcherExeSource is ' + $patcherExeSource)
 # Write-Debug ('$patcherExePath is ' + $patcherExePath)
 # Write-Debug ('$patcherExeHash is ' + $patcherExeHash)
 
-$patchFileSource = "https://github.com/chausner/1337patch/releases/download/latest/fuck-ea.1337"
-$patchFileScript = Join-Path -Path $env:TEMP -ChildPath "fuck-ea.1337"
+$patchFileSource = "https://github.com/f4bio/fifa22-alt-tab-disable/releases/download/latest/fuck-ea.1337"
+$patchFileScript = Join-Path -Path $tempDir -ChildPath "fuck-ea.1337"
 $patchFileHash = "A272DB500C12B11C51DC9818297F0F2D1C151357F6A676CF844CD5BD98A162DC"
 
 # Write-Debug ('$patchFileSource is ' + $patchFileSource)
