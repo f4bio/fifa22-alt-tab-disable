@@ -18,7 +18,7 @@ $patchFileHash = "A272DB500C12B11C51DC9818297F0F2D1C151357F6A676CF844CD5BD98A162
 # Write-Debug ('$patchFileHash is ' + $patchFileHash)
 
 $Logfile = "fuck-ea.log"
-$ProcessName = "FIFA22.exe"
+$ProcessName = "FIFA22"
 
 $eaIcon = @"
 ....................../´¯/)
