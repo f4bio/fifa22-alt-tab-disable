@@ -31,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: release-build-artifact.zip
-          path: target/release/fuck-ea
+          path: fuck-ea
