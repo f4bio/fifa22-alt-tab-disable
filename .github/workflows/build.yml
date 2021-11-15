@@ -8,14 +8,10 @@ jobs:
       - name: Check out Repo
         uses: actions/checkout@v2
 
-      - name: Ubuntu powershell hack
-        run: |
-          echo "yaya... stfu... beautiful version coming soon(tm)"
-          alias powershell=$(which pwsh)
-
       - name: Build
         run: |
           Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+          Set-Alias -Name powershell -Value pwsh
           Install-Module -Name ps2exe
           Invoke-ps2exe "fuck-ea.ps1" -version 0.0.1 -noOutput -noVisualStyles
         shell: pwsh
