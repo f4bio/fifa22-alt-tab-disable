@@ -1,19 +1,40 @@
-name: Run PowerShell build scrip
-on: push
+name: Build Executable file and Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
 
 jobs:
   build:
     runs-on: windows-2019
     steps:
-      - name: Check out Repo
+      - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: "Create semantic version"
+        id: versioning
+        uses: paulhatch/semantic-version@v3.2
+
+      - name: "Build Changelog"
+        id: changeloging
+        uses: mikepenz/release-changelog-builder-action@{latest-release}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: |
-          Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-          Set-Alias -Name powershell -Value pwsh
           Install-Module -Name ps2exe
-          Invoke-ps2exe "fuck-ea.ps1" -version 0.0.1 -noOutput -noVisualStyles
+          Invoke-ps2exe `
+            -noOutput -noVisualStyles `
+            -inputFile fuck-ea.ps1 `
+            -version ${{ steps.create_version.outputs.version }} `
+            -iconFile fuck-ea.ico `
+            -title "Fuck EA" `
+            -outputFile "fuck-ea_v${{ steps.create_version.outputs.version }}.exe"
         shell: powershell
 
       - name: Release
@@ -21,16 +42,16 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          body_path: CHANGELOG
-          tag_name: v0.0.1
+          body: ${{ steps.changeloging.outputs.changelog }}
+          tag_name: v${{ steps.create_version.outputs.version }}
           draft: false
           prerelease: false
           files: |
-            fuck-ea.exe
+            "fuck-ea_v${{ steps.create_version.outputs.version }}.exe"
             fuck-ea.1337
 
       - name: Artifact Production
         uses: actions/upload-artifact@v1
         with:
           name: release-build-artifact.zip
-          path: fuck-ea.exe
+          path: "fuck-ea_v${{ steps.create_version.outputs.version }}.exe"
