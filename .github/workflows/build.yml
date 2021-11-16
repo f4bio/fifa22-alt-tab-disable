@@ -10,23 +10,24 @@ jobs:
   build:
     runs-on: windows-2019
     steps:
-      - name: Checkout repo
+      - name: Checkout source code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: "Create semantic version"
+      - name: Calculate semantic version
         id: versioning
         uses: paulhatch/semantic-version@v3.2
 
-      - name: "Build Changelog"
+      - name: Prepare Changelog
         id: changeloging
         uses: mikepenz/release-changelog-builder-action@v2.7.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
+      - name: Build executable
         run: |
+          Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
           Install-Module -Name ps2exe
           Invoke-ps2exe `
             -noOutput -noVisualStyles `
@@ -37,8 +38,7 @@ jobs:
             -outputFile "fuck-ea_v${{ steps.create_version.outputs.version }}.exe"
         shell: powershell
 
-      - name: Release
-        id: create_release
+      - name: Make Release Page
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -50,7 +50,7 @@ jobs:
             "fuck-ea_v${{ steps.create_version.outputs.version }}.exe"
             fuck-ea.1337
 
-      - name: Artifact Production
+      - name: Artifact Production Build
         uses: actions/upload-artifact@v1
         with:
           name: release-build-artifact.zip
