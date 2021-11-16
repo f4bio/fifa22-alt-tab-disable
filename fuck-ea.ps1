@@ -9,7 +9,7 @@ $patcherExeHash = "39B702074319493D2B896AEA4876B1A6C9057113FB0DF969F0BE0D5C3A022
 # Write-Debug ('$patcherExePath is ' + $patcherExePath)
 # Write-Debug ('$patcherExeHash is ' + $patcherExeHash)
 
-$patchFileSource = "https://github.com/f4bio/fifa22-alt-tab-disable/releases/download/v0.0.1/fuck-ea.1337"
+$patchFileSource = "https://fixfifa.s3.eu-central-1.amazonaws.com/fuck-ea.1337"
 $patchFileScript = Join-Path -Path $tempDir -ChildPath "fuck-ea.1337"
 $patchFileHash = "A272DB500C12B11C51DC9818297F0F2D1C151357F6A676CF844CD5BD98A162DC"
 

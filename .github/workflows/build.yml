@@ -49,11 +49,10 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            "fuck-ea_v${{ steps.versioning.outputs.version }}.exe"
-            fuck-ea.1337
+            fuck-ea_v${{ steps.versioning.outputs.version }}.exe
 
       - name: Artifact Production Build
         uses: actions/upload-artifact@v1
         with:
           name: release-build-artifact.zip
-          path: "fuck-ea_v${{ steps.versioning.outputs.version }}.exe"
+          path: fuck-ea_v${{ steps.versioning.outputs.version }}.exe
