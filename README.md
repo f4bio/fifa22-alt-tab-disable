@@ -41,3 +41,11 @@ Invoke-ps2exe "fuck-ea.ps1" -outputFile .\dist\ -version 1.3.38 -noOutput -noVis
 ### build requirements
 
 * [ps2exe](https://github.com/MScholtes/PS2EXE) - thanks bro!
+
+
+## TODOs
+
+* how to improve "trojan" detection rate at [virustotal](https://www.virustotal.com/gui/file/8d5776b21b2a1eed07bec47171ff382ed7094ca02fb7534cba7b4f245209e3be?nocache=1)
+* how to not trigger chrome's "this file is dangerous" ting
+* how to not trigger windows UAC (even possible? maybe admin rights?)
+
