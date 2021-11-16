@@ -35,7 +35,7 @@ _no easy way to do this for now - sorry; might be implemented some time soon(tm)
 ## build exe yourself
 
 ```powershell
-Invoke-ps2exe "fuck-ea.ps1" -outputFile .\dist\ -version 1.3.38 -noOutput -noVisualStyles
+Invoke-ps2exe "fuck-ea.ps1" -version 1.3.38 -noOutput -noVisualStyles
 ```
 
 ### build requirements
@@ -45,7 +45,12 @@ Invoke-ps2exe "fuck-ea.ps1" -outputFile .\dist\ -version 1.3.38 -noOutput -noVis
 
 ## TODOs
 
+not sure of any of these are even possible... users are very suspicous about stuff like this.
+also, not trying to hide anyhting here (its FOSS), but this tool does act the same way actually harmuful tools do - its kind of the nature of the beast.
+
 * how to improve "trojan" detection rate at [virustotal](https://www.virustotal.com/gui/file/8d5776b21b2a1eed07bec47171ff382ed7094ca02fb7534cba7b4f245209e3be?nocache=1)
 * how to not trigger chrome's "this file is dangerous" ting
-* how to not trigger windows UAC (even possible? maybe admin rights?)
+* how to not trigger windows UAC
+* other things, currently mentioned in code
+* write todo comments from code in here :D
 
