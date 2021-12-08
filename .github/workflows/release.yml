@@ -8,6 +8,10 @@ on:
   release:
     types: [ "published" ]
 
+# temp workaround, because github actions suck...
+env:
+  VERSION: 0.0.2
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,6 +24,7 @@ jobs:
           echo "github.head_ref: ${{ github.head_ref }}"
           echo "github.head_sha: ${{ github.head_sha }}"
           echo "github.ref_name: ${{ github.ref_name }}"
+          echo "env.VERSION: '${{ env.VERSION }}'"
         shell: pwsh
 
       - name: Prepare changelog
@@ -39,10 +44,10 @@ jobs:
           Invoke-ps2exe `
             -noOutput -noVisualStyles `
             -inputFile fuck-ea.ps1 `
-            -version ${{ github.name_ref }} `
+            -version ${{ env.VERSION }} `
             -iconFile fuck-ea.ico `
             -title "Fuck EA" `
-            -outputFile "fuck-ea_v${{ github.name_ref }}.exe"
+            -outputFile "fuck-ea_v${{ env.VERSION }}.exe"
         shell: pwsh
 
       - name: Make Release Page
@@ -50,14 +55,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           body: ${{ steps.changeloging.outputs.changelog }}
-          tag_name: v${{ github.name_ref }}
+          tag_name: v${{ env.VERSION }}
           draft: false
           prerelease: false
           files: |
-            fuck-ea_v${{ github.name_ref }}.exe
+            fuck-ea_v${{ env.VERSION }}.exe
 
       - name: Artifact Production Build
         uses: actions/upload-artifact@v2
         with:
           name: release-build-artifact.zip
-          path: fuck-ea_v${{ github.name_ref }}.exe
+          path: fuck-ea_v${{ env.VERSION }}.exe

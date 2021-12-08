@@ -7,6 +7,10 @@ on:
   release:
     types: [ "published" ]
 
+# temp workaround, because github actions suck...
+env:
+  VERSION: 0.0.2
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,9 +20,10 @@ jobs:
 
       - name: Print Variables
         run: |
-          echo "github.head_ref: ${{ github.head_ref }}"
-          echo "github.head_sha: ${{ github.head_sha }}"
-          echo "github.ref_name: ${{ github.ref_name }}"
+          echo "github.head_ref: '${{ github.head_ref }}'"
+          echo "github.head_sha: '${{ github.head_sha }}'"
+          echo "github.ref_name: '${{ github.ref_name }}'"
+          echo "env.VERSION: '${{ env.VERSION }}'"
         shell: pwsh
 
       - name: Install from PSGallery
@@ -32,14 +37,14 @@ jobs:
           Invoke-ps2exe `
             -noOutput -noVisualStyles `
             -inputFile fuck-ea.ps1 `
-            -version  ${{ github.head_ref }} `
+            -version ${{ env.VERSION }} `
             -iconFile fuck-ea.ico `
             -title "Fuck EA" `
-            -outputFile "fuck-ea_${{ github.head_ref }}.exe"
+            -outputFile "fuck-ea_v${{ env.VERSION }}.exe"
         shell: pwsh
 
       - name: Artifact Production Build
         uses: actions/upload-artifact@v2
         with:
           name: build-artifact.zip
-          path: fuck-ea_${{ github.head_ref }}.exe
+          path: fuck-ea_v${{ env.VERSION }}.exe
