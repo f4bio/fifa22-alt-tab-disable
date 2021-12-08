@@ -12,10 +12,23 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
 
+      - name: Print Version Name
+        run: |
+          ls -la
+          mkdir ./_tmp
+          cp ./fuck-ea.1337 ./_tmp/fuck-ea.1337
+
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: "./_tmp"
+
       - name: Upload 1337-patch to s3
         uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: "fuck-ea.1337"
+          source_dir: "./fuck-ea.1337"

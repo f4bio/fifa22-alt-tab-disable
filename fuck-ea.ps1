@@ -80,5 +80,4 @@ finally{
   Write-Host $eaIcon
   Write-Host "SEE YOU IN HELL, EA!"
   Show-Loading
-  Start-Sleep -Milliseconds 5000
 }
