@@ -21,18 +21,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build executable
+      - name: Install from PSGallery
         run: |
           Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
           Install-Module -Name ps2exe
+        shell: pwsh
+
+      - name: Build executable
+        run: |
           Invoke-ps2exe `
             -noOutput -noVisualStyles `
             -inputFile fuck-ea.ps1 `
-            -version ${{ github.name_ref }} `
+            -version  `
             -iconFile fuck-ea.ico `
             -title "Fuck EA" `
-            -outputFile "fuck-ea_v${{ github.name_ref }}.exe"
-        shell: powershell
+            -outputFile "fuck-ea_${{ github.name_ref }}.exe"
+        shell: pwsh
 
       - name: Make Release Page
         uses: softprops/action-gh-release@v1
