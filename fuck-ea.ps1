@@ -61,10 +61,10 @@ Invoke-WebRequest -Uri $patchFileSource -OutFile $patchFileScript
 #   Remove-Item $patcherExe
 # }
 
-Get-Process $ProcessName -ErrorAction Stop
+$procId = (Get-Process $ProcessName -ErrorAction Stop).Id
 
 # do it
-& $patcherExePath $patchFileScript $ProcessName -ErrorAction Stop
+& $patcherExePath $patchFileScript -pid $procId -ErrorAction Stop
 
 Write-Host "patched! have fun!"
 Show-Loading
