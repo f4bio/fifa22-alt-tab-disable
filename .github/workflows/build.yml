@@ -9,34 +9,33 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
 
-      - name: Get Version Name
-        id: versioning
-        run: |
-          echo "::set-output name=version_name::${{ github.head_ref }}-${Get-Date -Format 'yyyyMMddHHmmss'}"
-
       - name: Print Version Name
-        run: echo ${{ steps.versioning.outputs.version_name }}
+        run: echo ${{ github.head_ref }}-${Get-Date -Format 'yyyyMMdd'}
 
-      - name: Build executable
+      - name: Install from PSGallery
         run: |
           Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
           Install-Module -Name ps2exe
+        shell: powershell
+
+      - name: Build executable
+        run: |
           Invoke-ps2exe `
             -noOutput -noVisualStyles `
             -inputFile fuck-ea.ps1 `
             -version  `
             -iconFile fuck-ea.ico `
             -title "Fuck EA" `
-            -outputFile "fuck-ea_${{ steps.versioning.outputs.version_name }}.exe"
+            -outputFile "fuck-ea_${{ github.head_ref }}.exe"
         shell: powershell
 
       - name: Artifact Production Build
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: build-artifact.zip
-          path: fuck-ea_${{ steps.versioning.outputs.version_name }}.exe
+          path: fuck-ea_${{ github.head_ref }}.exe
