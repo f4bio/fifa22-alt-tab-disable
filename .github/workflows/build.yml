@@ -11,12 +11,16 @@ jobs:
   build:
     runs-on: windows-2019
     steps:
-      - name: Checkout source code
+      - name: Checkout Source Code
         uses: actions/checkout@v2
 
-      - name: Get current timestamp
-        id: timestamp
-        run: echo "::set-output name=now::$(date +'%Y%m%d%H%M')"
+      - name: Get Version Name
+        id: versioning
+        run: |
+          echo "::set-output name=version_name::${{ github.head_ref }}-${Get-Date -Format 'yyyyMMddHHmmss'}"
+
+      - name: Print Version Name
+        run: echo ${{ steps.versioning.outputs.version_name }}
 
       - name: Build executable
         run: |
@@ -25,14 +29,14 @@ jobs:
           Invoke-ps2exe `
             -noOutput -noVisualStyles `
             -inputFile fuck-ea.ps1 `
-            -version ${{ github.head_ref }}-${{ steps.timestamp.outputs.now }} `
+            -version  `
             -iconFile fuck-ea.ico `
             -title "Fuck EA" `
-            -outputFile "fuck-ea_${{ github.head_ref }}-${{ steps.timestamp.outputs.now }}.exe"
+            -outputFile "fuck-ea_${{ steps.versioning.outputs.version_name }}.exe"
         shell: powershell
 
       - name: Artifact Production Build
         uses: actions/upload-artifact@v1
         with:
           name: build-artifact.zip
-          path: fuck-ea.exe
+          path: fuck-ea_${{ steps.versioning.outputs.version_name }}.exe
