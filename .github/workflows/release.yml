@@ -1,0 +1,58 @@
+name: Release Executable
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+  release:
+    types: [ "published" ]
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Calculate new version
+        id: versioning
+        uses: paulhatch/semantic-version@v3.2
+
+      - name: Prepare changelog
+        id: changeloging
+        uses: mikepenz/release-changelog-builder-action@v2.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: main
+
+      - name: Build executable
+        run: |
+          Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+          Install-Module -Name ps2exe
+          Invoke-ps2exe `
+            -noOutput -noVisualStyles `
+            -inputFile fuck-ea.ps1 `
+            -version ${{ steps.versioning.outputs.version }} `
+            -iconFile fuck-ea.ico `
+            -title "Fuck EA" `
+            -outputFile "fuck-ea_v${{ steps.versioning.outputs.version }}.exe"
+        shell: powershell
+
+      - name: Make Release Page
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: ${{ steps.changeloging.outputs.changelog }}
+          tag_name: v${{ steps.versioning.outputs.version }}
+          draft: false
+          prerelease: false
+          files: |
+            fuck-ea_v${{ steps.versioning.outputs.version }}.exe
+
+      - name: Artifact Production Build
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-build-artifact.zip
+          path: fuck-ea_v${{ steps.versioning.outputs.version }}.exe

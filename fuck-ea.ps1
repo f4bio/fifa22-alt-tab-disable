@@ -36,18 +36,18 @@ $eaIcon = @"
 function Show-Loading {
   for ($i = 1; $i -le 3; $i++ )
   {
-    Start-Sleep -Milliseconds 250
+    Start-Sleep -Milliseconds 1000
     Write-Host . -NoNewline
   }
-  Write-Host .
+  Write-Host "`n`n`n"
 }
 
 # todo: better logging and error handling - maybe?
 Start-Transcript -Path $Logfile
 
 # todo: use `if (-Not test-path $patcherExePath){}` - maybe?
-Remove-Item $patcherExePath -Force
-Remove-Item $patchFileScript -Force
+Remove-Item -Force $patcherExePath
+Remove-Item -Force $patchFileScript
 
 # download files
 Invoke-WebRequest -Uri $patcherExeSource -OutFile $patcherExePath
@@ -61,16 +61,24 @@ Invoke-WebRequest -Uri $patchFileSource -OutFile $patchFileScript
 #   Remove-Item $patcherExe
 # }
 
-$procId = (Get-Process $ProcessName -ErrorAction Stop).Id
+$ProcessId = (Get-Process $ProcessName -ErrorAction Stop).Id
+Write-Host "found '$ProcessName'! (pid: '$ProcessId')"
 
 # do it
-& $patcherExePath $patchFileScript -pid $procId -ErrorAction Stop
+try{
+  & $patcherExePath $patchFileScript -pid $ProcessId
+  Write-Host "patched! have fun!`n`n"
+}
+catch{
+  Write-Verbose "An exception was caught: $($_.Exception.Message)"
+  $_.Exception.Response
+}
+finally{
+  Stop-Transcript
 
-Write-Host "patched! have fun!"
-Show-Loading
-Write-Host $eaIcon
-Show-Loading
-Write-Host "SEE YOU IN HELL, EA!"
-Show-Loading
-
-Stop-Transcript
+  Show-Loading
+  Write-Host $eaIcon
+  Write-Host "SEE YOU IN HELL, EA!"
+  Show-Loading
+  Start-Sleep -Milliseconds 5000
+}
