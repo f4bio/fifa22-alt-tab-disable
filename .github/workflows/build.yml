@@ -24,13 +24,13 @@ jobs:
           echo "github.head_sha: '${{ github.head_sha }}'"
           echo "github.ref_name: '${{ github.ref_name }}'"
           echo "env.VERSION: '${{ env.VERSION }}'"
-        shell: pwsh
+        shell: powershell
 
       - name: Install from PSGallery
         run: |
           Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
           Install-Module -Name ps2exe
-        shell: pwsh
+        shell: powershell
 
       - name: Build executable
         run: |
@@ -41,7 +41,7 @@ jobs:
             -iconFile fuck-ea.ico `
             -title "Fuck EA" `
             -outputFile "fuck-ea_v${{ env.VERSION }}.exe"
-        shell: pwsh
+        shell: powershell
 
       - name: Artifact Production Build
         uses: actions/upload-artifact@v2
