@@ -1,4 +1,4 @@
-name: Build Executable file upload assets
+name: Build Executable file
 
 on:
   workflow_dispatch:
